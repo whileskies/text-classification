@@ -149,6 +149,53 @@ def write_docs_file(docs_list, filename):
                 f.write(str(doc) + '\n')
 
 
+# 从文件获取预处理的数据结构
+def load_vocab_list(filename):
+    vocab_list = []
+    with open(filename, encoding='UTF-8') as f:
+        for line in f.readlines():
+            vocab_list.append(line.strip())
+    return vocab_list
+
+
+def load_train_matrix(filename):
+    train_matrix = []
+    with open(filename, encoding='UTF-8') as f:
+        for line in f.readlines():
+            set_of_words = list(map(lambda x: int(x), line.strip().split(' ')))
+            train_matrix.append(set_of_words)
+    return train_matrix
+
+
+def load_train_category(filename):
+    with open(filename, encoding='UTF-8') as f:
+        train_category = list(map(lambda x: int(x), f.read().strip().split(' ')))
+    return train_category
+
+
+def load_test_matrix(filename):
+    test_matrix = []
+    with open(filename, encoding='UTF-8') as f:
+        for line in f.readlines():
+            bag_of_words = list(map(lambda x: int(x), line.strip().split(' ')))
+            test_matrix.append(bag_of_words)
+    return test_matrix
+
+
+def load_docs_list(filename):
+    docs_list = []
+    with open(filename, encoding='UTF-8') as f:
+        for line in f.readlines():
+            docs_list.append(line.strip())
+    return docs_list
+
+
+def load_test_category(filename):
+    with open(filename, encoding='UTF-8') as f:
+        test_category = list(map(lambda x: int(x), f.read().strip().split(' ')))
+    return test_category
+
+
 if __name__ == '__main__':
     # 训练集预处理
     train_vocab_list, train_data_list, train_docs_list = load_data_set(True)

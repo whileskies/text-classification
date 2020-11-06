@@ -4,52 +4,6 @@ import text_preprocessing as tp
 classes_num = tp.classes_num
 
 
-def load_vocab_list(filename):
-    vocab_list = []
-    with open(filename, encoding='UTF-8') as f:
-        for line in f.readlines():
-            vocab_list.append(line.strip())
-    return vocab_list
-
-
-def load_train_matrix(filename):
-    train_matrix = []
-    with open(filename, encoding='UTF-8') as f:
-        for line in f.readlines():
-            set_of_words = list(map(lambda x: int(x), line.strip().split(' ')))
-            train_matrix.append(set_of_words)
-    return train_matrix
-
-
-def load_train_category(filename):
-    with open(filename, encoding='UTF-8') as f:
-        train_category = list(map(lambda x: int(x), f.read().strip().split(' ')))
-    return train_category
-
-
-def load_test_matrix(filename):
-    test_matrix = []
-    with open(filename, encoding='UTF-8') as f:
-        for line in f.readlines():
-            bag_of_words = list(map(lambda x: int(x), line.strip().split(' ')))
-            test_matrix.append(bag_of_words)
-    return test_matrix
-
-
-def load_docs_list(filename):
-    docs_list = []
-    with open(filename, encoding='UTF-8') as f:
-        for line in f.readlines():
-            docs_list.append(line.strip())
-    return docs_list
-
-
-def load_test_category(filename):
-    with open(filename, encoding='UTF-8') as f:
-        test_category = list(map(lambda x: int(x), f.read().strip().split(' ')))
-    return test_category
-
-
 def train_nb(train_matrix, train_category):
 
     p_class = [0] * classes_num
@@ -116,17 +70,17 @@ def get_words_by_bow(vocab_list, bow_vec):
 
 
 if __name__ == '__main__':
-    vocab_list = load_vocab_list(tp.vocab_list_dir)
+    vocab_list = tp.load_vocab_list(tp.vocab_list_dir)
     print('词库数:' + str(len(vocab_list)))
-    docs_list = load_docs_list(tp.test_docs_list_dir)
-    train_matrix = load_train_matrix(tp.train_bag_of_words_dir)
+    docs_list = tp.load_docs_list(tp.test_docs_list_dir)
+    train_matrix = tp.load_train_matrix(tp.train_bag_of_words_dir)
 
-    train_category = load_train_category(tp.train_class_dir)
+    train_category = tp.load_train_category(tp.train_class_dir)
 
     p_words, p_class = train_nb(train_matrix, train_category)
 
-    test_matrix = load_test_matrix(tp.test_bag_of_words_dir)
-    test_true_category = load_test_category(tp.test_class_dir)
+    test_matrix = tp.load_test_matrix(tp.test_bag_of_words_dir)
+    test_true_category = tp.load_test_category(tp.test_class_dir)
 
     print('测试集数:' + str(len(test_true_category)))
 
