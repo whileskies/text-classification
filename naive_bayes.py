@@ -5,7 +5,6 @@ classes_num = tp.classes_num
 
 
 def train_nb(train_matrix, train_category):
-
     p_class = [0] * classes_num
     for i in range(len(p_class)):
         # laplace smoothing
@@ -69,7 +68,7 @@ def get_words_by_bow(vocab_list, bow_vec):
     return words_list
 
 
-if __name__ == '__main__':
+def main():
     vocab_list = tp.load_vocab_list(tp.vocab_list_dir)
     print('词库数:' + str(len(vocab_list)))
     docs_list = tp.load_docs_list(tp.test_docs_list_dir)
@@ -85,3 +84,7 @@ if __name__ == '__main__':
     print('测试集数:' + str(len(test_true_category)))
 
     nb_classify(p_words, p_class, test_matrix, test_true_category, vocab_list, docs_list)
+
+
+if __name__ == '__main__':
+    main()

@@ -196,7 +196,7 @@ def load_test_category(filename):
     return test_category
 
 
-if __name__ == '__main__':
+def main():
     # 训练集预处理
     train_vocab_list, train_data_list, train_docs_list = load_data_set(True)
     write_vocab_file(train_vocab_list, vocab_list_dir)
@@ -213,5 +213,9 @@ if __name__ == '__main__':
     test_bag_of_words_list, test_class_list = get_words_class_vec(train_vocab_list, test_data_list, False)
     write_words_file(test_bag_of_words_list, test_bag_of_words_dir)
     write_class_file(test_class_list, test_class_dir)
+
+
+if __name__ == '__main__':
+    main()
 
 
