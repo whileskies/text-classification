@@ -199,20 +199,22 @@ def load_test_category(filename):
 def main():
     # 训练集预处理
     train_vocab_list, train_data_list, train_docs_list = load_data_set(True)
-    write_vocab_file(train_vocab_list, vocab_list_dir)
-    write_docs_file(train_docs_list, train_docs_list_dir)
-    train_set_of_words_list, train_class_list = get_words_class_vec(train_vocab_list, train_data_list, True)
-    write_words_file(train_set_of_words_list, train_set_of_words_dir)
-    write_class_file(train_class_list, train_class_dir)
-    train_bag_of_words_list, train_class_list = get_words_class_vec(train_vocab_list, train_data_list, False)
-    write_words_file(train_bag_of_words_list, train_bag_of_words_dir)
-
-    # 测试集预处理
+    # write_vocab_file(train_vocab_list, vocab_list_dir)
+    # write_docs_file(train_docs_list, train_docs_list_dir)
+    # train_set_of_words_list, train_class_list = get_words_class_vec(train_vocab_list, train_data_list, True)
+    # write_words_file(train_set_of_words_list, train_set_of_words_dir)
+    # write_class_file(train_class_list, train_class_dir)
+    # train_bag_of_words_list, train_class_list = get_words_class_vec(train_vocab_list, train_data_list, False)
+    # write_words_file(train_bag_of_words_list, train_bag_of_words_dir)
+    #
+    # # 测试集预处理
     test_vocab_list, test_data_list, test_docs_list = load_data_set(False)
-    write_docs_file(test_docs_list, test_docs_list_dir)
-    test_bag_of_words_list, test_class_list = get_words_class_vec(train_vocab_list, test_data_list, False)
-    write_words_file(test_bag_of_words_list, test_bag_of_words_dir)
-    write_class_file(test_class_list, test_class_dir)
+    # write_docs_file(test_docs_list, test_docs_list_dir)
+    # test_bag_of_words_list, test_class_list = get_words_class_vec(train_vocab_list, test_data_list, False)
+    # write_words_file(test_bag_of_words_list, test_bag_of_words_dir)
+    # write_class_file(test_class_list, test_class_dir)
+    test_set_of_words_list, test_class_list = get_words_class_vec(train_vocab_list, test_data_list, True)
+    write_words_file(test_set_of_words_list, test_set_of_words_dir)
 
 
 if __name__ == '__main__':

@@ -73,7 +73,6 @@ def get_words_by_bow(vocab_list, bow_vec):
 def main():
     vocab_list = tp.load_vocab_list(tp.vocab_list_dir)
     print('词库数:' + str(len(vocab_list)))
-    docs_list = tp.load_docs_list(tp.test_docs_list_dir)
     train_matrix = tp.load_train_matrix(tp.train_set_of_words_dir)
 
     train_category = tp.load_train_category(tp.train_class_dir)
@@ -82,6 +81,7 @@ def main():
 
     test_matrix = tp.load_test_matrix(tp.test_bag_of_words_dir)
     test_true_category = tp.load_test_category(tp.test_class_dir)
+    docs_list = tp.load_docs_list(tp.test_docs_list_dir)
 
     print('测试集数:' + str(len(test_true_category)))
 
