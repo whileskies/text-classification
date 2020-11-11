@@ -18,7 +18,7 @@ def train_nb(train_matrix, train_category):
     for i in range(classes_num):
         # laplace smoothing
         p_words_num.append(np.ones(num_words))
-        p_words_denom.append(num_words)
+        p_words_denom.append(2)
 
     for i in range(len(train_matrix)):
         p_words_num[train_category[i]] += train_matrix[i]
@@ -30,14 +30,14 @@ def train_nb(train_matrix, train_category):
     return p_words, p_class
 
 
-def get_max_probability_category(p_words, p_class, bag_of_words_vec):
+def get_max_probability_category(p_words, p_class, words_vec):
     probability = []
 
     for class_index in range(classes_num):
         log_sum = p_class[class_index]
-        for i in range(len(bag_of_words_vec)):
-            if bag_of_words_vec[i] > 0:
-                log_sum += bag_of_words_vec[i] * p_words[class_index][i]
+        for i in range(len(words_vec)):
+            if words_vec[i] > 0:
+                log_sum += words_vec[i] * p_words[class_index][i]
 
         probability.append(log_sum)
 

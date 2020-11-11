@@ -1,6 +1,6 @@
 import text_preprocessing as tp
 import numpy as np
-from scipy.special import softmax as sf
+# from scipy.special import softmax as sf
 
 
 class Softmax:
@@ -77,33 +77,57 @@ def acc_count(test_matrix, test_predict_category, test_true_category, vocab_list
     print('准确率:%.2f%%' % (100.0 * acc / len(test_matrix)))
 
 
-def main():
+def presence_run():
+    vocab_list = tp.load_vocab_list(tp.vocab_list_dir)
+    print('词库数:' + str(len(vocab_list)))
+    # train_matrix = tp.load_train_matrix(tp.train_bag_of_words_dir)
+    train_matrix = tp.load_train_matrix(tp.train_set_of_words_dir)
+    train_category = tp.load_train_category(tp.train_class_dir)
+
+    softmax = Softmax(train_matrix, train_category, tp.classes_num, 0.01, 50)
+    softmax.train()
+
+    # test_matrix = tp.load_test_matrix(tp.test_bag_of_words_dir)
+    test_matrix = tp.load_test_matrix(tp.test_set_of_words_dir)
+    test_true_category = tp.load_test_category(tp.test_class_dir)
+    docs_list = tp.load_docs_list(tp.test_docs_list_dir)
+    print('测试集数:' + str(len(test_true_category)))
+
+    test_predict_category = softmax.test(test_matrix)
+
+    acc_count(test_matrix, test_predict_category, test_true_category, vocab_list, docs_list)
+
+
+def frequency_run():
     vocab_list = tp.load_vocab_list(tp.vocab_list_dir)
     print('词库数:' + str(len(vocab_list)))
     train_matrix = tp.load_train_matrix(tp.train_bag_of_words_dir)
     # train_matrix = tp.load_train_matrix(tp.train_set_of_words_dir)
     train_category = tp.load_train_category(tp.train_class_dir)
-    print(np.shape(train_matrix))
 
-    softmax = Softmax(train_matrix, train_category, tp.classes_num, 0.01, 100)
+    softmax = Softmax(train_matrix, train_category, tp.classes_num, 0.01, 50)
     softmax.train()
-    print(softmax.weights)
-    print(np.shape(softmax.weights))
 
     test_matrix = tp.load_test_matrix(tp.test_bag_of_words_dir)
     # test_matrix = tp.load_test_matrix(tp.test_set_of_words_dir)
-    print('test_matrix')
-    print(np.shape(test_matrix))
     test_true_category = tp.load_test_category(tp.test_class_dir)
     docs_list = tp.load_docs_list(tp.test_docs_list_dir)
     print('测试集数:' + str(len(test_true_category)))
-    print(np.shape(test_matrix))
 
     test_predict_category = softmax.test(test_matrix)
-    print(test_predict_category)
-    print(len(test_predict_category))
 
     acc_count(test_matrix, test_predict_category, test_true_category, vocab_list, docs_list)
+
+
+def main():
+    print('Choose classification based on presence(0) or frequency(1): ', end='')
+    choose = int(input())
+    if choose == 0:
+        presence_run()
+    elif choose == 1:
+        frequency_run()
+    else:
+        print('wrong input!')
 
 
 if __name__ == '__main__':
