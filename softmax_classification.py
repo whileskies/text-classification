@@ -51,7 +51,7 @@ class Softmax:
     def test(self, test_features):
         # predict_soft = self.soft(test_features @ self.weights.T)
         predict_soft = test_features @ self.weights.T
-        print(predict_soft)
+        # print(predict_soft)
         return predict_soft.argmax(axis=1)
 
 
@@ -82,6 +82,8 @@ def presence_run():
     print('词库数:' + str(len(vocab_list)))
     # train_matrix = tp.load_train_matrix(tp.train_bag_of_words_dir)
     train_matrix = tp.load_train_matrix(tp.train_set_of_words_dir)
+    train_matrix = np.insert(train_matrix, 0, 1, axis=1)
+
     train_category = tp.load_train_category(tp.train_class_dir)
 
     softmax = Softmax(train_matrix, train_category, tp.classes_num, 0.01, 50)
@@ -89,6 +91,8 @@ def presence_run():
 
     # test_matrix = tp.load_test_matrix(tp.test_bag_of_words_dir)
     test_matrix = tp.load_test_matrix(tp.test_set_of_words_dir)
+    test_matrix = np.insert(test_matrix, 0, 1, axis=1)
+
     test_true_category = tp.load_test_category(tp.test_class_dir)
     docs_list = tp.load_docs_list(tp.test_docs_list_dir)
     print('测试集数:' + str(len(test_true_category)))
@@ -102,6 +106,7 @@ def frequency_run():
     vocab_list = tp.load_vocab_list(tp.vocab_list_dir)
     print('词库数:' + str(len(vocab_list)))
     train_matrix = tp.load_train_matrix(tp.train_bag_of_words_dir)
+    train_matrix = np.insert(train_matrix, 0, 1, axis=1)
     # train_matrix = tp.load_train_matrix(tp.train_set_of_words_dir)
     train_category = tp.load_train_category(tp.train_class_dir)
 
@@ -109,6 +114,8 @@ def frequency_run():
     softmax.train()
 
     test_matrix = tp.load_test_matrix(tp.test_bag_of_words_dir)
+    test_matrix = np.insert(test_matrix, 0, 1, axis=1)
+
     # test_matrix = tp.load_test_matrix(tp.test_set_of_words_dir)
     test_true_category = tp.load_test_category(tp.test_class_dir)
     docs_list = tp.load_docs_list(tp.test_docs_list_dir)
